@@ -1,3 +1,5 @@
+"use client";
+
 import LoginForm from "@/features/authentication/components/LoginForm";
 import AuthLayout from "@/features/authentication/layouts/AuthLayout";
 
