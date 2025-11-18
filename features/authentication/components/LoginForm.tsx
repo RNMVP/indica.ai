@@ -7,8 +7,11 @@ import { Input } from "@/shared/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link";
 import { useForm } from "react-hook-form"
+import { useAuth } from "../hooks/useAuth";
+import { Spinner } from "@/shared/components/ui/spinner";
 
 export default function LoginForm() {
+    const { login, loading } = useAuth();
     const form = useForm<LoginSchema>({
         resolver: zodResolver(loginSchema),
         defaultValues: {
@@ -17,8 +20,8 @@ export default function LoginForm() {
         },
     });
 
-    function handleLogin(values: LoginSchema) {
-        console.log(`Dados: Email: ${values.email}, Senha: ${values.password}`)
+    async function handleLogin(values: LoginSchema) {
+        await login(values);
     }
     return (
         <Form {...form}>
@@ -31,7 +34,7 @@ export default function LoginForm() {
                         <FormItem>
                             <FormLabel className="text-secondary-foreground font-normal text-base">Email: </FormLabel>
                             <FormControl>
-                                <Input className="h-10" placeholder="email@email.com" {...field} />
+                                <Input className="h-10" autoComplete="email" placeholder="email@email.com" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -46,7 +49,7 @@ export default function LoginForm() {
                         <FormItem>
                             <FormLabel className="text-secondary-foreground font-normal text-base">Senha: </FormLabel>
                             <FormControl>
-                                <Input className="h-10" type="password" placeholder="******" {...field} />
+                                <Input className="h-10" type="password" autoComplete="current-password" placeholder="******" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -55,7 +58,7 @@ export default function LoginForm() {
 
                 {/* Botão */}
                 <Button type="submit" className="text-base hover:bg-[#3B82F6] bg-primary w-full h-10 mt-4">
-                    Entrar
+                    { loading ? <Spinner/> : 'Entrar' }
                 </Button>
 
                 {/* Cadastro */}
