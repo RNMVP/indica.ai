@@ -1,6 +1,5 @@
 "use client";
 
-import { LoginSchema } from "@/lib/schemas/login.schema"
 import { registerSchema, RegisterSchema } from "@/lib/schemas/register.schema";
 import { Button } from "@/shared/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/components/ui/form";
@@ -8,8 +7,11 @@ import { Input } from "@/shared/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link";
 import { useForm } from "react-hook-form"
+import { useAuth } from "../hooks/useAuth";
+import { Spinner } from "@/shared/components/ui/spinner";
 
 export default function RegisterForm() {
+    const { register, loading } = useAuth();
     const form = useForm<RegisterSchema>({
         resolver: zodResolver(registerSchema),
         defaultValues: {
@@ -20,13 +22,8 @@ export default function RegisterForm() {
         },
     });
 
-    function handleRegister(values: RegisterSchema) {
-        console.log(`
-            Dados: 
-            Nome: ${values.name}, 
-            Email: ${values.email}, 
-            Senha: ${values.password}, 
-            Confirmar Senha: ${values.confirmPassword}`)
+    async function handleRegister(values: RegisterSchema) {
+        await register(values);
     }
     return (
         <Form {...form}>
@@ -39,7 +36,7 @@ export default function RegisterForm() {
                         <FormItem>
                             <FormLabel className="text-secondary-foreground font-normal text-base">Nome Completo: </FormLabel>
                             <FormControl>
-                                <Input className="h-10" placeholder="Digite seu nome..." {...field} />
+                                <Input className="h-10" autoComplete="name" placeholder="Digite seu nome..." {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -54,7 +51,7 @@ export default function RegisterForm() {
                         <FormItem>
                             <FormLabel className="text-secondary-foreground font-normal text-base">Email: </FormLabel>
                             <FormControl>
-                                <Input className="h-10" placeholder="email@email.com" {...field} />
+                                <Input className="h-10" autoComplete="email" placeholder="email@email.com" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -69,7 +66,7 @@ export default function RegisterForm() {
                         <FormItem>
                             <FormLabel className="text-secondary-foreground font-normal text-base">Senha: </FormLabel>
                             <FormControl>
-                                <Input className="h-10" type="password" placeholder="******" {...field} />
+                                <Input className="h-10" type="password" autoComplete="new-password" placeholder="******" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -84,7 +81,7 @@ export default function RegisterForm() {
                         <FormItem>
                             <FormLabel className="text-secondary-foreground font-normal text-base">Confirmar senha: </FormLabel>
                             <FormControl>
-                                <Input className="h-10" type="password" placeholder="******" {...field} />
+                                <Input className="h-10" type="password" autoComplete="new-password" placeholder="******" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -93,7 +90,7 @@ export default function RegisterForm() {
 
                 {/* Botão */}
                 <Button type="submit" className="text-base hover:bg-[#3B82F6] bg-primary w-full h-10 mt-4">
-                    Cadastrar
+                    { loading ? <Spinner/> : 'Cadastrar' }
                 </Button>
 
                 {/* Cadastro */}
