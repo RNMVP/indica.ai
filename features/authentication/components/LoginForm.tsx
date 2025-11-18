@@ -29,7 +29,7 @@ export default function LoginForm() {
                     name="email"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="font-normal text-lg">Email: </FormLabel>
+                            <FormLabel className="text-secondary-foreground font-normal text-base">Email: </FormLabel>
                             <FormControl>
                                 <Input className="h-10" placeholder="email@email.com" {...field} />
                             </FormControl>
@@ -44,7 +44,7 @@ export default function LoginForm() {
                     name="password"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="font-normal text-lg">Senha: </FormLabel>
+                            <FormLabel className="text-secondary-foreground font-normal text-base">Senha: </FormLabel>
                             <FormControl>
                                 <Input className="h-10" type="password" placeholder="******" {...field} />
                             </FormControl>
@@ -54,14 +54,14 @@ export default function LoginForm() {
                 />
 
                 {/* Botão */}
-                <Button type="submit" className="text-base hover:bg-[#3B82F6] bg-[#005bed] w-full h-10 mt-4">
+                <Button type="submit" className="text-base hover:bg-[#3B82F6] bg-primary w-full h-10 mt-4">
                     Entrar
                 </Button>
 
                 {/* Cadastro */}
-                <p className="text-center text-sm text-gray-600 hover:text-gray-800 mt-2">
+                <p className="text-center text-sm text-secondary-foreground mt-2">
                     Não possui uma conta? 
-                    <Link href="/auth/register" className="text-blue-600 hover:underline ml-1">
+                    <Link href="/auth/register" className="text-chart-3 hover:underline ml-1">
                         Cadastre-se
                     </Link>
                 </p>
