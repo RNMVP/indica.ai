@@ -11,7 +11,7 @@ import Link from "next/link";
 import { Building2, User } from "lucide-react";
 import AuthLayout from "@/features/authentication/layouts/AuthLayout";
 
-export default function SelectionPage() {
+export function SelectionType() {
   return (
     <AuthLayout title="Bem-vindo ao Indica.ai">
       <div className="grid gap-6 w-2xl">
