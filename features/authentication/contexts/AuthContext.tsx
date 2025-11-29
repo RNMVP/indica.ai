@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import { User } from "../models/user";
 import { RegisterDTO } from "@/lib/schemas/register.schema";
 import { LoginDTO } from "@/lib/schemas/login.schema";
@@ -22,19 +22,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const router = useRouter();
 
-  useEffect(() => {
+  const loadUser = useCallback(() => {
     const stored = localStorage.getItem("auth:user");
     if (stored) setUser(JSON.parse(stored));
     setLoading(false);
   }, []);
 
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
+
   async function login(data: LoginDTO) {
     setLoading(true);
 
     const user = {
-        id: "teste-id",
-        name: "Teste Usuário",
-        email: data.email,
+      id: "teste-id",
+      name: "Teste Usuário",
+      email: data.email,
     };
 
     setUser(user);
@@ -65,7 +69,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <AuthContext.Provider value={{ user, loading, login, register, logout }}>
-      { children }
+      {children}
     </AuthContext.Provider>
   );
 }
