@@ -18,7 +18,7 @@ const fileSchema = z
 
 export const registerSchema = z.object({
   name: z.string().min(3, "O nome deve ter no mínimo 3 caracteres.").trim(),
-  email: z.string().email({ message: "Informe um e-mail válido." }),
+  email: z.email({ message: "Informe um e-mail válido." }),
   password: z.string().min(6, { message: "A senha deve ter no mínimo 6 caracteres." }),
   confirmPassword: z.string().min(6, { message: "A confirmação de senha deve ter no mínimo 6 caracteres." }),
   
@@ -31,7 +31,7 @@ export const registerSchema = z.object({
   fantasyName: z.string().optional(),
   quadro: z.string().optional(), // "Quadro" as requested
   creationDate: z.string().optional(),
-  contactEmail: z.string().email({ message: "Informe um e-mail de contato válido." }).optional().or(z.literal("")),
+  contactEmail: z.email({ message: "Informe um e-mail de contato válido." }).optional().or(z.literal("")),
   contactPhone: z.string().optional(),
   partners: z.array(z.object({ name: z.string().min(1, "Nome do sócio é obrigatório") })).optional(),
   
