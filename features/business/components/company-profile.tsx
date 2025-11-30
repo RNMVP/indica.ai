@@ -70,7 +70,7 @@ export function CompanyProfile({ profile }: CompanyProfileProps) {
           </div>
         </div>
 
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <Link href="/search">
             <Button size="lg" className="gap-2 shadow-lg">
               <Search className="w-4 h-4" />
